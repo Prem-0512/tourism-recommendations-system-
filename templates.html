@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourism Recommendation System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 50px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #d8e7eb;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 13px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #00c6ff;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0072ff;
+        }
+
+        .results {
+            margin-top: 35px;
+        }
+
+        .destination {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 15px;
+        }
+
+        .destination h3 {
+            margin-top: 0;
+            color: #7ee8fa;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #c9d6da;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>🌍 Tourism Recommendation System</h1>
+        <p>Find your perfect destination using AI-based recommendations</p>
+    </div>
+
+    <div class="card">
+
+        <form action="/recommend" method="POST">
+
+            <label>Select Your Budget</label>
+            <select name="budget" required>
+                <option value="">Choose Budget</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+
+            <label>Select Season</label>
+            <select name="season" required>
+                <option value="">Choose Season</option>
+                <option value="Summer">Summer</option>
+                <option value="Monsoon">Monsoon</option>
+                <option value="Winter">Winter</option>
+            </select>
+
+            <label>Select Activity</label>
+            <select name="activity" required>
+                <option value="">Choose Activity</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Culture">Culture</option>
+                <option value="Relaxation">Relaxation</option>
+                <option value="Entertainment">Entertainment</option>
+            </select>
+
+            <button type="submit">🔍 Get Recommendations</button>
+
+        </form>
+
+        {% if recommendations %}
+        <div class="results">
+            <h2>Recommended Destinations</h2>
+
+            {% for place in recommendations %}
+            <div class="destination">
+
+                <h3>📍 {{ place.name }}</h3>
+
+                <p><strong>Type:</strong> {{ place.type }}</p>
+
+                <p><strong>Budget:</strong> {{ place.budget }}</p>
+
+                <p><strong>Best Season:</strong> {{ place.season }}</p>
+
+                <p><strong>Activity:</strong> {{ place.activity }}</p>
+
+                <p>{{ place.description }}</p>
+
+            </div>
+            {% endfor %}
+
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div class="footer">
+        <p>Tourism Recommendation System | B.Tech AIML Project</p>
+    </div>
+
+</div>
+
+</body>
+</html>
